@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "library(randomForest) \n\nindicators <- read.csv(\"zScore.csv\",sep=\";\",na.strings=\"NaN\",stringsAsFactors = FALSE)\n\nclasses <- read.csv(\"classes.csv\",sep=\";\")\nclasses <- transform(classes,Class = as.factor(Class))\n\nindicators$Stocks <- I(indicators$Stocks)\n\nfor (i in names(indicators)[-1]){\n  indicators[[i]] <- as.numeric(indicators[[i]])\n}\n\n\nind_rf <- randomForest(classes$Class~.,data=indicators[,-1],ntree=100,proximity=TRUE,na.action = na.omit)\n\n\ntable(predict(ind_rf),classes$Class)\n\nprint(ind_rf)\nimportance(ind_rf)\nvarImpPlot(ind_rf)\n\n\nFeatureNumber<-tuneRF(indicators[,-1],indicators[,1],na.action = na.omit)\n\n\n\nstr(indicators)\nnames(indicators)\ndim(indicators)\nstr(classes)\ndim(classes$Class)\ndim(indicators[-1,])\n\nindicators[,1]",
+    "created" : 1461330902544.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1442758564",
+    "id" : "BD32570D",
+    "lastKnownWriteTime" : 1461336462,
+    "last_content_update" : 1461336462516,
+    "path" : "C:/LocalProjects/Trees/RandomForest.R",
+    "project_path" : "RandomForest.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
